@@ -49,6 +49,8 @@ class UserController extends Controller
       if($id == null){
         $users = User::findOrFail(Auth::User() -> id);
       } else {
+        if(Auth::User() -> id == $id)
+          return redirect('profile');
         $users = User::findOrFail($id);
       }
 

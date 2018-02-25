@@ -13,6 +13,17 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth','verify']], function(){
 
+  //dataDaftar AJAX mengambil data-data yang diperlukan untuk
+  //mendaftarkan atlit lomba dengan ajax
+  Route::get('data/atlit', 'DaftarController@atlit');
+  Route::get('data/lomba', 'DaftarController@lomba');
+  Route::get('data/umur', 'DaftarController@umur');
+
+  //daftar perlombaan ajax
+  Route::post('daftars/s', 'DaftarController@search');
+  Route::get('daftar/{sub?}', 'DaftarController@myPosts');
+  Route::resource('daftars','DaftarController');
+
   //atlit ajax
   Route::post('atlits/s', 'AtlitController@search');
   Route::get('atlit/{sub?}', 'AtlitController@myPosts');

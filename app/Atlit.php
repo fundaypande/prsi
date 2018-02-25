@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Sekolah;
+use App\Daftar;
 
 class Atlit extends Model
 {
@@ -20,5 +21,10 @@ class Atlit extends Model
   public function sekolah()
   {
       return $this->belongsTo('App\Sekolah');
+  }
+
+  public function daftar()
+  {
+      return $this->hasMany('App\Daftar');
   }
 }

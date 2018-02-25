@@ -9,4 +9,9 @@ class Umur extends Model
   protected $fillable = [
       'name', 'keterangan',
   ];
+
+  public function daftar()
+  {
+      return $this->hasMany('App\Daftar');
+  }
 }

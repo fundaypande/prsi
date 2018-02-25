@@ -9,4 +9,9 @@ class Lomba extends Model
   protected $fillable = [
       'name'
   ];
+
+  public function daftar()
+  {
+      return $this->hasMany('App\Daftar');
+  }
 }
