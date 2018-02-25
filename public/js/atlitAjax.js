@@ -3,7 +3,9 @@ var current_page = 1;
 var total_page = 0;
 var is_ajax_fire = 0;
 
-manageData();
+$( document ).ready(function() {
+    manageData();
+});
 
 /* manage data list */
 function manageData() {
@@ -147,9 +149,9 @@ $("body").on("click",".edit-item",function() {
     if(jk == "Perempuan") realJk = 0;
 
     $("#edit-item").find("input[name='name']").val(name);
-    $("#edit-item").find("select[name='jk']").val(realJk).trigger('change');;
+    $("#edit-item").find("select[name='jk']").val(realJk).trigger('change');
     $("#edit-item").find("input[name='ttl']").val(ttl);
-    $("#edit-item").find("select[name='school']").val(sekolah_id).trigger('change');;
+    $("#edit-item").find("select[name='school']").val(sekolah_id).trigger('change');
     $("#edit-item").find("form").attr("action",url + '/' + id);
 });
 

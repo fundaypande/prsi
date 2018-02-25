@@ -3,7 +3,11 @@ var current_page = 1;
 var total_page = 0;
 var is_ajax_fire = 0;
 
-manageData();
+$( document ).ready(function() {
+    manageData();
+});
+
+
 
 /* manage data list */
 function manageData() {
@@ -62,12 +66,13 @@ function manageRow(data) {
         rows = rows + '<td>'+value.best_time+'</td>';
         rows = rows + '<td>'+value.umur.name+'</td>';
         rows = rows + '<td>'+value.user.name+'</td>';
-  	  	rows = rows + '<td data-id="'+value.id+'" data-sekolah="">';
+  	  	rows = rows + '<td data-id="'+value.id+'" data-atlit="'+value.atlit.id+'" data-lomba="'+value.lomba.id+'" data-umur="'+value.umur.id+'">';
           rows = rows + '<button data-toggle="modal" data-target="#edit-item" class="btn btn-primary edit-item">Edit</button> ';
           rows = rows + '<button data-target="#modal-delete" data-toggle="modal" class="btn btn-danger remove-item">Delete</button>';
         rows = rows + '</td>';
 	  	rows = rows + '</tr>';
 	});
+  $("tbody").empty();
 	$("tbody").html(rows);
 }
 
@@ -75,40 +80,70 @@ function manageRow(data) {
 $(".crud-submit").click(function(e) {
     e.preventDefault();
     var form_action = $("#create-item").find("form").attr("action");
-    var name = $("#create-item").find("input[name='name']").val();
-    var jk = $("#create-item").find("select[name='jk']").val();
-    var ttl = $("#create-item").find("input[name='ttl']").val();
+    var atlit_id = $("#create-item").find("select[name='atlit']").val();
+    var lomba_id = $("#create-item").find("select[name='lomba']").val();
+    var best_time = $("#create-item").find("input[name='best_time']").val();
+    var umur_id = $("#create-item").find("select[name='umur']").val();
     var user_id = $("#create-item").find("input[name='user']").val();
-    var sekolah_id = $("#create-item").find("select[name='school']").val();
+    console.log(atlit_id+lomba_id+best_time+umur_id+user_id);
     $.ajax({
         dataType: 'json',
         type:'POST',
         url: form_action,
         data:{
-          name:name,
-          jk : jk,
-          ttl : ttl,
-          sekolah_id : sekolah_id,
-          user_id : user_id
+          atlit_id : atlit_id,
+          lomba_id : lomba_id,
+          user_id : user_id,
+          best_time : best_time,
+          umur_id : umur_id
         }
     }).done(function(dataa){
         getPageData();
         $(".modal").modal('hide');
 
-        demo.showNotification('top','right','Berhasil menambahkan data Atlit');
+        demo.showNotification('top','right','Berhasil menambahkan data');
     });
 });
 
 /* Search new Post */
 $("#cari").keyup(function(event){
   var sub = $(this).val();
+  var ragex = new RegExp(sub, 'i');
+  var	rows = '';
+
   $.ajax({
       dataType: 'json',
       type:'post',
       url: url + "/s",
       data: {sub:sub}
   }).done(function(data) {
-      manageRow(data.data);
+
+      $.each( data.data, function( key, value ) {
+
+          if((value.atlit.name.search(ragex) != -1) ||
+                (value.lomba.name.search(ragex) != -1) ||
+                (value.best_time.search(ragex) != -1) ||
+                (value.user.name.search(ragex) != -1) ||
+                (value.umur.name.search(ragex) != -1))
+          {
+          rows = rows + '<tr>';
+            rows = rows + '<td>'+ ++key +'</td>';
+            rows = rows + '<td>'+value.atlit.name+'</td>';
+            rows = rows + '<td>'+ value.lomba.name +'</td>';
+            rows = rows + '<td>'+value.best_time+'</td>';
+            rows = rows + '<td>'+value.umur.name+'</td>';
+            rows = rows + '<td>'+value.user.name+'</td>';
+            rows = rows + '<td data-id="'+value.id+'" data-sekolah="">';
+              rows = rows + '<button data-toggle="modal" data-target="#edit-item" class="btn btn-primary edit-item">Edit</button> ';
+              rows = rows + '<button data-target="#modal-delete" data-toggle="modal" class="btn btn-danger remove-item">Delete</button>';
+            rows = rows + '</td>';
+          rows = rows + '</tr>';
+          }
+      });
+      $("tbody").empty();
+      $("tbody").html(rows);
+
+
   });
 });
 
@@ -137,19 +172,17 @@ $("#hapus").click(function(e) {
 /* Edit Post */
 $("body").on("click",".edit-item",function() {
     var id = $(this).parent("td").data('id');
-    var sekolah_id = $(this).parent("td").data('sekolah');
-    var name = $(this).parent("td").prev("td").prev("td").prev("td").prev("td").prev("td").text();
-    var jk = $(this).parent("td").prev("td").prev("td").prev("td").prev("td").text();
-    var ttl = $(this).parent("td").prev("td").prev("td").prev("td").text();
-    // var sekolah_id = $(this).parent("td").prev("td").prev("td").text();
+    var atlit_id = $(this).parent("td").data('atlit');
+    var lomba_id = $(this).parent("td").data('lomba');
+    var best_time = $(this).parent("td").prev("td").prev("td").prev("td").text();
+    var umur_id = $(this).parent("td").data('umur');
 
-    var realJk = 1;
-    if(jk == "Perempuan") realJk = 0;
+    console.log(atlit_id);
 
-    $("#edit-item").find("input[name='name']").val(name);
-    $("#edit-item").find("select[name='jk']").val(realJk).trigger('change');;
-    $("#edit-item").find("input[name='ttl']").val(ttl);
-    $("#edit-item").find("select[name='school']").val(sekolah_id).trigger('change');;
+    $("#edit-item").find("select[name='atlit']").val(atlit_id).trigger('change');
+    $("#edit-item").find("select[name='lomba']").val(lomba_id).trigger('change');
+    $("#edit-item").find("input[name='best_time']").val(best_time);
+    $("#edit-item").find("select[name='umur']").val(umur_id).trigger('change');
     $("#edit-item").find("form").attr("action",url + '/' + id);
 });
 
@@ -157,25 +190,24 @@ $("body").on("click",".edit-item",function() {
 $(".crud-submit-edit").click(function(e) {
     e.preventDefault();
     var form_action = $("#edit-item").find("form").attr("action");
-    var name = $("#edit-item").find("input[name='name']").val();
-    var jk = $("#edit-item").find("select[name='jk']").val();
-    var ttl = $("#edit-item").find("input[name='ttl']").val();
-    var user_id = $("#edit-item").find("input[name='user']").val();
-    var sekolah_id = $("#edit-item").find("select[name='school']").val();
+    var atlit_id = $("#edit-item").find("select[name='atlit']").val();
+    var lomba_id = $("#edit-item").find("select[name='lomba']").val();
+    var best_time = $("#edit-item").find("input[name='best_time']").val();
+    var umur_id = $("#edit-item").find("select[name='umur']").val();
+
     $.ajax({
         dataType: 'json',
         type:'PUT',
         url: form_action,
         data:{
-          name:name,
-          jk : jk,
-          ttl : ttl,
-          sekolah_id : sekolah_id,
-          user_id : user_id
+          atlit_id : atlit_id,
+          lomba_id : lomba_id,
+          best_time : best_time,
+          umur_id : umur_id
         }
     }).done(function(data){
         getPageData();
         $(".modal").modal('hide');
-        demo.showNotification('top','right','Berhasil mengedit data atlit');
+        demo.showNotification('top','right','Berhasil mengedit data pendaftaran lomba');
     });
 });

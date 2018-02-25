@@ -32,7 +32,7 @@ class AtlitController extends Controller
    */
   public function index($sub = null, Request $request)
   {
-      $posts = Atlit::with(['user','sekolah'])->paginate(10);
+      $posts = Atlit::with(['user','sekolah'])->latest()->paginate(10);
       return response()->json($posts);
   }
 

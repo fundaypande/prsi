@@ -6,7 +6,9 @@ $.ajaxSetup({
     }
 });
 
-getData();
+$( document ).ready(function() {
+    getData();
+});
 
 $("#save").click(function(){
   $("select").empty();

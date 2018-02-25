@@ -35,6 +35,7 @@ class DaftarController extends Controller
   public function index($sub = null, Request $request)
   {
       $posts = Daftar::with(['user','atlit','lomba','umur'])
+                ->latest()
                 ->paginate(10);
       return response()->json($posts);
   }

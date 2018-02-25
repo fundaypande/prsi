@@ -10,25 +10,24 @@
                 {{ csrf_field() }}
                 <div class="form-group">
                   <label>Nama Atlit</label>
-                  <input name="name" type="text" class="form-control" value="">
-                </div>
-                <div class="form-group">
-                  <label>Jenis Kelamin</label>
-                  <select style="width:100%" name="jk" class="js-example-basic-single">
-                    <option value="1">Laki-laki</option>
-                    <option value="0">Perempuan</option>
+                  <select name="atlit" data-sch="funday" style="width:100%"  class="js-example-basic-single atlit">
                   </select>
                 </div>
                 <div class="form-group">
-                  <label>Tanggal Lahir</label><br>
-                  <input type="date" name="ttl" required="required">
-                  <input type="hidden" name="user" value="{{ Auth::user() -> id }}" required="required">
+                  <label>Perlombaan</label>
+                  <select name="lomba" data-sch="funday" style="width:100%"  class="js-example-basic-single">
+                  </select>
                 </div>
                 <div class="form-group">
-                  <label for="school" class="col-md-4 control-label">School Name</label><br>
-                        <select data-sch="funday" style="width:100%" name="school" class="js-example-basic-single">
-                        </select>
+                  <label>Best Time</label>
+                  <input class="form-control" type="text" name="best_time" value="">
                 </div>
+                <div class="form-group">
+                  <label>Kelompok Umur</label>
+                  <select name="umur" data-sch="funday" style="width:100%"  class="js-example-basic-single">
+                  </select>
+                </div>
+
                 <br>
                 <button type="submit" data-toggle="modal" data-target="#edit-item" class="btn btn-primary crud-submit-edit">Simpan</button>
               </form>

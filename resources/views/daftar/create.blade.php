@@ -6,11 +6,11 @@
                 <h4 class="modal-title" id="titleModal">Tambah Perlombaan</h4>
             </div>
             <div class="modal-body">
-              <form action="/atlits">
+              <form action="/daftars">
                 {{ csrf_field() }}
                 <div class="form-group">
                   <label>Nama Atlit</label>
-                  <select name="atlit" data-sch="funday" style="width:100%"  class="js-example-basic-single">
+                  <select name="atlit" id="atlit" data-sch="funday" style="width:100%"  class="js-example-basic-single atlit">
                   </select>
                 </div>
                 <div class="form-group">
@@ -25,6 +25,7 @@
                 <div class="form-group">
                   <label>Umur Atlit</label>
                   <input class="form-control" type="text" name="umur" value="">
+                  <input type="hidden" name="user" value="{{ Auth::user() -> id }}" required="required">
                 </div>
                 <div class="form-group">
                   <label>Kelompok Umur</label>
