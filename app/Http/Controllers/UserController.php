@@ -14,9 +14,9 @@ class UserController extends Controller
   }
 
   public function show(){
-      $users = User::paginate(10);
+      $users = User::orderBy('role','asc')->paginate(10);
 
-      return view('admin.user', compact('users'));
+      return view('admin.users.user', compact('users'));
     }
 
   public function updatePass(Request $request){
@@ -61,7 +61,7 @@ class UserController extends Controller
       $this -> validate($request, [
               'name' => 'required|min:3',
               'email' => 'required|min:3|email',
-              'sekolah' => 'required|min:3',
+              'sekolah' => 'required|min:1',
               'telepon' => 'required|min:3',
             ]);
       if(Auth::User() -> id == $user -> id){
@@ -106,7 +106,28 @@ class UserController extends Controller
       //return response()->json(['error'=>$validator->errors()->all()]);
     }
 
+    //merubah role admin
+    public function role($id, $stat){
+      $user = User::findOrFail($id);
+      if(Auth::user()->id == $id){
+        return redirect('admin/user')->with('msg-warning', 'Anda tidak bisa merubah role anda sendiri');
+      }
+
+      $role = '1';
+      if($stat == '1')
+        $role = '0';
+
+      $user -> update([
+        'role' => $role,
+      ]);
+
+      return redirect('admin/user')->with('msg', 'Berhasil rubah role user');
+    }
+
     public function destroy($id){
+      if(Auth::user()->id == $id){
+        return redirect('admin/user')->with('msg-warning', 'Anda tidak boleh menghapus data user anda sendiri');
+      }
       $user = User::findOrFail($id);
           $user -> delete();
         return redirect('admin/user')->with('msg', 'Data user berhasil di hapus');

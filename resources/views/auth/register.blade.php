@@ -47,7 +47,15 @@
                         <div class="form-group{{ $errors->has('school') ? ' has-error' : '' }}">
                             <label for="school" class="col-md-4 control-label">School Name</label>
                             <div class="col-md-6">
-                                <input id="school" type="text" class="form-control" name="school" value="{{ old('school') }}" required>
+                              <div class="row">
+                                <div class="col-md-8">
+                                  <select data-sch="funday" style="width:100%" name="school" class="js-example-basic-single js-states form-control" id="id_label_single">
+                                  </select>
+                                </div>
+                                <div class="col-md-4">
+                                  <button type="button" name="button" class="btn btn-success" data-toggle="modal" data-target="#create-item">Tambah Sekolah</button>
+                                </div>
+                              </div>
                                 @if ($errors->has('school'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('school') }}</strong>
@@ -66,23 +74,6 @@
                                 @endif
                             </div>
                         </div>
-                        <!-- <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                        </div> -->
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
@@ -92,6 +83,21 @@
                         </div>
                     </form>
             </div>
+        @include('sekolah.create')
         </div>
+
+        <script type="text/javascript">
+        var url = "<?php echo route('sekolahs.index')?>";
+        $(document).ready(function() {
+          $('.js-example-basic-single').select2();
+
+
+          $('#create-item').appendTo("body");
+
+        });
+
+        </script>
+        <script src="{{ asset('js/sekolahAjax.js') }}"></script>
+        <script src="{{ asset('js/registerAjax.js') }}"></script>
 
 @endsection

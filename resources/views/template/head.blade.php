@@ -1,6 +1,7 @@
   <meta charset="utf-8" />
 <link rel="icon" type="image/png" href="assets/img/favicon.ico">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <title>Aplikasi Kas Keluarga Nengah Nurita</title>
 
@@ -30,3 +31,6 @@
   <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
   <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
   <link href="{!! asset('css/pe-icon-7-stroke.css') !!}" rel="stylesheet" />
+
+  <!-- Auto complite combobox -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />

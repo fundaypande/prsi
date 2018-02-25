@@ -1,6 +1,7 @@
-<div class="sidebar" data-color="purple" data-image="{{ asset('img/sidebar-5.jpg') }}">
+<div class="sidebar" data-color="purple">
 
 <!--
+data-image="{{ asset('img/sidebar-5.jpg') }}
 
     Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
     Tip 2: you can also add an image using data-image tag
@@ -10,33 +11,51 @@
   <div class="sidebar-wrapper">
         <div class="logo">
             <a href="/" class="simple-text">
-                Aplikasi Kas Keluarga
+                PRSI BULELENG
             </a>
         </div>
 
         <ul class="nav">
           <li>
-              <a href="/super">
+              <a href="/home">
                   <i class="pe-7s-graph"></i>
-                  <p>Admin Panel</p>
+                  <p>Dashboard</p>
               </a>
           </li>
             <li>
-                <a href="/home">
-                    <i class="pe-7s-graph"></i>
-                    <p>Dashboard</p>
+                <a href="/atlit">
+                    <i class="pe-7s-users"></i>
+                    <p>Data Atlit</p>
                 </a>
             </li>
             <li>
-                <a href="/transfer">
+                <a href="/daftar">
                     <i class="pe-7s-news-paper"></i>
-                    <p>Transfer Uang</p>
+                    <p>Mendaftar Lomba</p>
                 </a>
             </li>
             <li>
-                <a href="/tarik">
-                    <i class="pe-7s-news-paper"></i>
-                    <p>Tarik Uang</p>
+                <a href="/ku">
+                    <i class="pe-7s-id"></i>
+                    <p>Kelompok Umur</p>
+                </a>
+            </li>
+            <li>
+                <a href="/lomba">
+                    <i class="pe-7s-mail-open-file"></i>
+                    <p>Daftar Lomba</p>
+                </a>
+            </li>
+            <li>
+                <a href="/sekolah">
+                    <i class="pe-7s-culture"></i>
+                    <p>Daftar Sekolah</p>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/user">
+                    <i class="pe-7s-add-user"></i>
+                    <p>Daftar Pengguna</p>
                 </a>
             </li>
 

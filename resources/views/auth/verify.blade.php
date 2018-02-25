@@ -6,9 +6,10 @@
         <div class="col-md-8">
             <div class="card card-default">
                 <div class="card-header">Verifikasi Registrasi User</div>
-                <p>Silahkan masukkan username atau email dan juga password untuk melakukan registrasi</p>
+
 
                 <div class="card-body">
+                  <p>Silahkan masukkan username atau email dan juga password untuk melakukan registrasi</p>
                   @if(session('msg-warning'))
                 <div class="alert alert-warning">
                   <p> {{ session('msg-warning') }}</p>
@@ -17,11 +18,11 @@
                     <form method="POST" action="">
                         @csrf
 
-                        <div class="form-group row">
-                            <label for="email" class="col-sm-4 col-form-label text-md-right">Username / Email</label>
+                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                            <label for="email" class="col-md-4 control-label">Username / Email</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+                                <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
 
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback">

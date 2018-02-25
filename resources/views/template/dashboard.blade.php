@@ -31,7 +31,7 @@
 												<span class="icon-bar"></span>
 												<span class="icon-bar"></span>
 										</button>
-										<a class="navbar-brand" href="#">Dashboard</a>
+										<a class="navbar-brand" href="/home">Dashboard</a>
 								</div>
 								<div class="collapse navbar-collapse">
 										<ul class="nav navbar-nav navbar-left">
@@ -57,11 +57,7 @@
 										</ul>
 
 										<ul class="nav navbar-nav navbar-right">
-												<li>
-													 <a href="/transfer">
-															 <p>Transfer</p>
-														</a>
-												</li>
+
 												<li class="dropdown">
 															<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 																		<p>
@@ -133,9 +129,14 @@
     <script src="{!! asset('js/bootstrap-notify.js') !!}"></script>
 
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
-	<script src="{!! asset('js/light-bootstrap-dashboard.js?v=1.4.0') !!}"></script>
+	<script src="{!! asset('js/light-bootstrap-dashboard.js') !!}"></script>
 
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 	<script src="{!! asset('js/demo.js') !!}"></script>
+	<script src="{!! asset('js/page.js') !!}"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.js"></script>
+
 
 </html>

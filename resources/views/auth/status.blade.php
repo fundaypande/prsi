@@ -27,7 +27,7 @@
 
                   </div>
                   <input class="form-control" type="text" value="{{url('/')}}/verify/{{$user->token}}/{{$user->id}}" id="myInput"><br>
-                  <button class="btn btn-primary" onclick="myFunction()" onmouseout="outFunc()">Copy to clipboard</button>
+                  <button class="btn btn-primary" onclick="myFunction()">Copy to clipboard</button>
 
                   </div>
 

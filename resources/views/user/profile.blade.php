@@ -92,11 +92,26 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <?php
+                                              if($users-> school == null)
+                                                $sekolah = "";
+                                              else $sekolah = $users-> sekolah -> name;
+                                             ?>
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label>Sekolah</label>
-                                                        <input id="sekolah" name="sekolah" type="text" value="{{ $users -> school }}" class="form-control" >
+                                                        <div class="row">
+                                                          <div class="col-md-8">
+                                                            <select data-sch="funday" style="width: 100%" name="sekolah" class="js-example-basic-single js-states form-control" id="id_label_single">
+                                                              <option value="{{$users-> school}}">{{ $sekolah }}</option>
+                                                            </select>
+                                                          </div>
+                                                          <div class="col-md-4">
+                                                            <button type="button" name="button" class="btn btn-success" data-toggle="modal" data-target="#create-item">Tambah Sekolah</button>
+                                                          </div>
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -119,12 +134,15 @@
 
 
 </div>
+
+@include('sekolah.create')
 </div>
-<script src="{{ asset('js/rupiah.js') }}"></script>
+
 <script type="text/javascript">
 
     var idUser = $('#username').attr('data-id');
     var idUserLogin = $('#username').attr('id-login');
+    var url = "<?php echo route('sekolahs.index')?>";
     console.log(idUserLogin);
 
     //user yang login dapat mengedit profile
@@ -142,5 +160,18 @@
       $('#change-pic').hide();
     }
 
+    $(document).ready(function() {
+      $('.js-example-basic-single').select2();
+
+
+
+      $('#create-item').appendTo("body");
+    });
+
+
+
 </script>
+
+<script src="{{ asset('js/sekolahAjax.js') }}"></script>
+<script src="{{ asset('js/registerAjax.js') }}"></script>
 @endsection

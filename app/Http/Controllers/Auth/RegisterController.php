@@ -44,6 +44,7 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware(['auth','verify','role']);
+        //$this->middleware('guest');
     }
 
     //funday add
@@ -82,7 +83,7 @@ class RegisterController extends Controller
             'username' => 'required|string|max:20|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             //'password' => 'required|string|min:6|confirmed',
-            'school' => 'required|string|min:5',
+            'school' => 'required|string|min:1',
             'phone' => 'required|string|min:5',
         ]);
     }
