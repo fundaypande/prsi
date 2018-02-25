@@ -67,22 +67,6 @@ data-image="{{ asset('img/sidebar-5.jpg') }}
   var base_url = window.location.origin; //get base url ('http://localhost.com')
 
   currentURL = currentURL.replace(base_url, '');
-
-  switch(currentURL) {
-    case '/super':
-        $("li").find('a[href="/super"]').parent().addClass('active');
-        break;
-    case '/home':
-        $("li").find('a[href="/home"]').parent().addClass('active');
-        break;
-    case '/transfer':
-        $("li").find('a[href="/transfer"]').parent().addClass('active');
-        break;
-    case '/tarik':
-        $("li").find('a[href="/tarik"]').parent().addClass('active');
-        break;
-    default:
-        $("li").find('a[href="/super"]').parent().addClass('active');
-  }
+  $("li").find('a[href="'+ currentURL +'"]').parent().addClass('active');
 
 </script>

@@ -23,7 +23,7 @@ class DaftarController extends Controller
   public function search(Request $request)
   {
       $posts = Daftar::with(['user','atlit','lomba','umur'])
-              ->paginate(10);
+              ->paginate(20);
       return response()->json($posts);
   }
 
@@ -36,7 +36,7 @@ class DaftarController extends Controller
   {
       $posts = Daftar::with(['user','atlit','lomba','umur'])
                 ->latest()
-                ->paginate(10);
+                ->paginate(20);
       return response()->json($posts);
   }
 
