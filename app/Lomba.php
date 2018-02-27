@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Lomba extends Model
 {
   protected $fillable = [
-      'name'
+      'name', 'acara',
   ];
 
   public function daftar()

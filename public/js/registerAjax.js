@@ -6,6 +6,12 @@ $.ajaxSetup({
     }
 });
 
+$( document ).ajaxError(function( event, request, settings) {
+  notif = demo.notifEAjax(request);
+  errorCode = request.responseText;
+  demo.showNotification('top','right','Gagal melakukan request Ajax - ' + notif, 4);
+});
+
 $( document ).ready(function() {
     getData();
 });
@@ -27,9 +33,10 @@ function manage(data) {
 }
 
 function getData() {
+  var base_url = window.location.origin;
 	$.ajax({
     	dataType: 'json',
-    	url: 'register/school',
+    	url: base_url+'/register/school',
     	data: {page:page}
 	}).done(function(data) {
 		manage(data);

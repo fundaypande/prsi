@@ -242,8 +242,10 @@ demo = {
         marker.setMap(map);
     },
 
-	showNotification: function(from, align, msg){
-    	color = 2;
+	showNotification: function(from, align, msg, color){
+    //1 = blue 3 = orange 2 = green 4 = red
+    var timer = 4000;
+    if(color == 4) timer = 7000;
 
     	$.notify({
         	icon: "pe-7s-gift",
@@ -251,13 +253,27 @@ demo = {
 
         },{
             type: type[color],
-            timer: 4000,
+            timer: timer,
             placement: {
                 from: from,
                 align: align
             }
         });
-	}
+	},
+
+  notifEAjax: function(error){
+    var notif = '';
+    if (error.status == 0) {
+                notif = 'Not connect.n Verify Network.';
+            } else if (error.status == 404) {
+                notif ='Requested page not found. [404]';
+            } else if (error.status == 500) {
+                notif ='Internal Server Error [500].';
+            } else {
+                notif ='Uncaught Error.n' + error.responseText;
+            }
+    return notif;
+  }
 
 
 }

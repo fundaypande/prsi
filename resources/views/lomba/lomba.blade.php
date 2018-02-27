@@ -11,7 +11,7 @@
                     Menampilkan data perlombaan yang terdaftar
                 </p>
 		        <div class="pull-right">
-				          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#create-item">Tambah Data Perlombaan</button>
+				          <button type="button" class="btn btn-success" id="show-create" data-toggle="modal" data-target="#create-item">Tambah Data Perlombaan</button>
 		        </div>
 		    </div>
 
@@ -27,6 +27,7 @@
     			    <tr>
         				<th>key</th>
         				<th>Nama Perlombaan</th>
+                <th>No Acara</th>
         				<th width="200px">Action</th>
     			    </tr>
 			</thead>

@@ -5,7 +5,62 @@ var is_ajax_fire = 0;
 
 $( document ).ready(function() {
     manageData();
+    validateAcara("#show-create", "#create-item");
+    validateAcara("#show-edit", "#edit-item");
+    $("#create-item").find("input[name='acara']").attr('style', '');
 });
+
+
+$( document ).ajaxError(function( event, request, settings) {
+  notif = demo.notifEAjax(request);
+  errorCode = request.responseText;
+  demo.showNotification('top','right','Gagal melakukan request Ajax - ' + notif, 4);
+});
+
+// Menangani No Acara Uniq
+function validateAcara(modal, btn){
+  $(modal).click(function(){
+    $(btn).find("input[name='acara']").val('');
+    $(btn).find("input[name='name']").val('');
+    $(btn).find("input[name='acara']").attr('style', '');
+    var sub = '1';
+    $.ajax({
+        dataType: 'json',
+        url: url + "/latest",
+        data: {sub:sub}
+    }).done(function(data) {
+        var recAcara = data.acara + 1;
+        $(btn).find("input[name='acara']").attr('placeholder', 'Rekomendasi no acara : '+ recAcara);
+    });
+  });
+
+  $(btn).find("input[name='acara']").keyup(function(){
+    //do validate
+    var sub = $(this).val();
+    $.ajax({
+        dataType: 'json',
+        type:'post',
+        url: url + "/findduplicateacara",
+        data: {sub:sub}
+    }).done(function(data) {
+      console.log(data.acara);
+      if(data.acara == null) $(btn).find("input[name='acara']").attr('style', '');
+      else {
+        //set css error
+        $(btn).find("input[name='acara']").attr('style', 'border-color: red; border-width: 2px;');
+      }
+    });
+
+  }).on('keypress', function(e) { //mencegah huruf
+     var c = e.keyCode || e.charCode;
+     switch (c) {
+      case 8: case 9: case 27: case 13: return;
+      case 65:
+       if (e.ctrlKey === true) return;
+     }
+     if (c < 48 || c > 57) e.preventDefault();
+    });
+}
 
 /* manage data list */
 function manageData() {
@@ -56,8 +111,9 @@ function manageRow(data) {
 	  	rows = rows + '<tr>';
       rows = rows + '<td>'+ ++key +'</td>';
 	  	rows = rows + '<td>'+value.name+'</td>';
+      rows = rows + '<td>'+value.acara+'</td>';
 	  	rows = rows + '<td data-id="'+value.id+'">';
-        rows = rows + '<button data-toggle="modal" data-target="#edit-item" class="btn btn-primary edit-item">Edit</button> ';
+        rows = rows + '<button data-toggle="modal" data-target="#edit-item" id="show-edit" class="btn btn-primary edit-item">Edit</button> ';
         rows = rows + '<button data-target="#modal-delete" data-toggle="modal" class="btn btn-danger remove-item">Delete</button>';
         rows = rows + '</td>';
 	  	rows = rows + '</tr>';
@@ -72,18 +128,24 @@ $(".crud-submit").click(function(e) {
     e.preventDefault();
     var form_action = $("#create-item").find("form").attr("action");
     var name = $("#create-item").find("input[name='name']").val();
+    var acara = $("#create-item").find("input[name='acara']").val();
     $.ajax({
         dataType: 'json',
         type:'POST',
         url: form_action,
-        data:{name:name}
+        data:{
+          name:name,
+          acara : acara
+        }
     }).done(function(dataa){
         getPageData();
         $(".modal").modal('hide');
 
-        demo.showNotification('top','right','Berhasil menambahkan data perlombaan');
+        demo.showNotification('top','right','Berhasil menambahkan data perlombaan', 1);
     });
 });
+
+
 
 /* Search new Post */
 $("#cari").keyup(function(event){
@@ -115,7 +177,7 @@ $("#hapus").click(function(e) {
         url: form_action,
     }).done(function(data) {
         c_obj.remove();
-        demo.showNotification('top','right','Berhasil menghapus data perlombaan');
+        demo.showNotification('top','right','Berhasil menghapus data perlombaan', 1);
         getPageData();
     });
 });
@@ -123,9 +185,12 @@ $("#hapus").click(function(e) {
 /* Edit Post */
 $("body").on("click",".edit-item",function() {
     var id = $(this).parent("td").data('id');
-    var name = $(this).parent("td").prev("td").text();
+    var name = $(this).parent("td").prev("td").prev("td").text();
+    var acara = $(this).parent("td").prev("td").text();
     $("#edit-item").find("input[name='name']").val(name);
+    $("#edit-item").find("input[name='acara']").val(acara);
     $("#edit-item").find("form").attr("action",url + '/' + id);
+
 });
 
 /* Updated new Post */
@@ -133,14 +198,15 @@ $(".crud-submit-edit").click(function(e) {
     e.preventDefault();
     var form_action = $("#edit-item").find("form").attr("action");
     var name = $("#edit-item").find("input[name='name']").val();
+    var acara = $("#edit-item").find("input[name='acara']").val();
     $.ajax({
         dataType: 'json',
         type:'PUT',
         url: form_action,
-        data:{name:name}
+        data:{name:name, acara:acara}
     }).done(function(data){
         getPageData();
         $(".modal").modal('hide');
-        demo.showNotification('top','right','Berhasil mengedit data perlombaan');
+        demo.showNotification('top','right','Berhasil mengedit data perlombaan', 1);
     });
 });

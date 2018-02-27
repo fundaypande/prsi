@@ -24,6 +24,19 @@ class LombaController extends Controller
       return response()->json($posts);
   }
 
+  public function findduplicateacara(Request $request){
+    $posts = Lomba::where('acara',$request->sub)
+            ->first();
+    return response()->json($posts);
+  }
+
+  // get latest value of lomba table
+  public function latest(){
+    $posts = Lomba::latest()
+                ->first();
+    return response()->json($posts);
+  }
+
   /**
    * Display a listing of the resource.
    *

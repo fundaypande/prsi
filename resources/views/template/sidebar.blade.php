@@ -58,6 +58,12 @@ data-image="{{ asset('img/sidebar-5.jpg') }}
                     <p>Daftar Pengguna</p>
                 </a>
             </li>
+            <li>
+                <a href="/laporan">
+                    <i class="pe-7s-graph2"></i>
+                    <p>Laporan</p>
+                </a>
+            </li>
 
         </ul>
   </div>

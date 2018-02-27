@@ -8,12 +8,12 @@
                 <div class="card-header">Login</div>
 
                 <div class="card-body">
-                  @if(session('msg-warning'))
-                <div class="alert alert-warning">
-                  <p> {{ session('msg-warning') }}</p>
-                </div>
-              @endif
-              
+                @if(session('msg-warning'))
+                  <div class="alert alert-warning">
+                    <p> {{ session('msg-warning') }}</p>
+                  </div>
+                @endif
+
               @if(session('msg'))
                 <div class="alert alert-success">
                   <p> {{ session('msg') }}</p>
@@ -72,6 +72,12 @@
                             </div>
                         </div>
                     </form>
+                    <br>
+                    <br>
+                    <center>
+                      <p style="color : #6e7071">Silahkan Kirim Nama, E-Mail , Nama Sekolah/club, Alamat, dan No HP/Telp Ke 087860823923</p>
+                    </center>
+
                 </div>
             </div>
         </div>

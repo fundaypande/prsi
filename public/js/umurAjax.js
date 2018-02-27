@@ -7,6 +7,12 @@ $( document ).ready(function() {
     manageData();
 });
 
+$( document ).ajaxError(function( event, request, settings) {
+  notif = demo.notifEAjax(request);
+  errorCode = request.responseText;
+  demo.showNotification('top','right','Gagal melakukan request Ajax - ' + notif, 4);
+});
+
 /* manage data list */
 function manageData() {
     $.ajax({
@@ -83,7 +89,7 @@ $(".crud-submit").click(function(e) {
         getPageData();
         $(".modal").modal('hide');
 
-        demo.showNotification('top','right','Berhasil menambahkan data umur');
+        demo.showNotification('top','right','Berhasil menambahkan data umur', 1);
     });
 });
 
@@ -117,7 +123,7 @@ $("#hapus").click(function(e) {
         url: form_action,
     }).done(function(data) {
         c_obj.remove();
-        demo.showNotification('top','right','Berhasil menghapus data umur');
+        demo.showNotification('top','right','Berhasil menghapus data umur', 1);
         getPageData();
     });
 });
@@ -147,6 +153,6 @@ $(".crud-submit-edit").click(function(e) {
     }).done(function(data){
         getPageData();
         $(".modal").modal('hide');
-        demo.showNotification('top','right','Berhasil mengedit data umur');
+        demo.showNotification('top','right','Berhasil mengedit data umur', 1);
     });
 });
